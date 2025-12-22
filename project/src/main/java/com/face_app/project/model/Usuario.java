@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table
 public class Usuario {
@@ -39,6 +41,9 @@ public class Usuario {
     @NotNull
     @Length(min = 6, max = 255)
     private String senha;
+
+    @NotNull
+    private LocalDateTime data_criacao;
 
     @NotNull
     private Boolean ativo;
@@ -110,6 +115,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public LocalDateTime getData_criacao() {
+        return data_criacao;
+    }
+
+    public void setData_criacao(LocalDateTime data_criacao) {
+        this.data_criacao = data_criacao;
     }
 
     public Boolean getAtivo() {
