@@ -35,7 +35,7 @@ public class Usuario {
     private String telefone;
 
     @NotNull
-    @Length(min = 10, max = 45)
+    @Length(min = 3, max = 45)
     private String login;
 
     @NotNull

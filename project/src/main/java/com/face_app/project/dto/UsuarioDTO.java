@@ -11,7 +11,7 @@ public record UsuarioDTO(
         @NotNull @Length(min = 11, max = 11) String cpf,
         @NotNull @Length(min = 11, max = 100) String email,
         @NotNull @Length(min = 10, max = 20) String telefone,
-        @NotNull @Length(min = 10, max = 45) String login,
+        @NotNull @Length(min = 3, max = 45) String login,
         @NotNull @Length(min = 6, max = 255) String senha ) {
 
     public Usuario toUsuario(){
@@ -20,6 +20,7 @@ public record UsuarioDTO(
         usuario.setNome(nome);
         usuario.setCpf(cpf);
         usuario.setTelefone(telefone);
+        usuario.setEmail(email);
         usuario.setLogin(login);
         usuario.setSenha(senha);
         usuario.setData_criacao(LocalDateTime.now());
