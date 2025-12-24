@@ -1,4 +1,4 @@
-package com.face_app.project.service;
+package com.face_app.project.service.usuario;
 
 import com.face_app.project.dto.UsuarioDTO;
 import com.face_app.project.dto.UsuarioResponse;
