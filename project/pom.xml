@@ -81,6 +81,13 @@
 			<artifactId>javacv-platform</artifactId>
 			<version>1.5.12</version>
 		</dependency>
+
+		<!-- DEPENDENCIA PARA DECODER DE IMG -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.20.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
