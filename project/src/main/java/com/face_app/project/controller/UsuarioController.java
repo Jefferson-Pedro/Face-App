@@ -1,8 +1,7 @@
 package com.face_app.project.controller;
 
 import com.face_app.project.dto.UsuarioDTO;
-import com.face_app.project.model.Usuario;
-import com.face_app.project.service.IUsuarioService;
+import com.face_app.project.service.usuario.IUsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
