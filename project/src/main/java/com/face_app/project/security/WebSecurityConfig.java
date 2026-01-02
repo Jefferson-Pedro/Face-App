@@ -34,6 +34,7 @@ public class WebSecurityConfig {
         // Autorização
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/user/new").permitAll()
+                .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
         );
