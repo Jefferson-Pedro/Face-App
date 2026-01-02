@@ -1,5 +1,6 @@
 package com.face_app.project.controller;
 
+import com.face_app.project.dto.UserLoginRequest;
 import com.face_app.project.dto.UsuarioRequest;
 import com.face_app.project.service.usuario.IUsuarioService;
 import jakarta.validation.Valid;
@@ -25,6 +26,19 @@ public class UsuarioController {
                 return ResponseEntity.status(201).body("Usuario " + usuarioRequest.nome() + " cadastrado com sucesso!");
             }
             return  ResponseEntity.status(409).body("Usuário já cadastrado na base de dados!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("ERRO: Dados incompletos! " + e);
+        }
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<String> register (@Valid @RequestBody UserLoginRequest loginRequest){
+        try{
+            Boolean res = service.login(loginRequest);
+            if(res){
+                return ResponseEntity.ok().build();
+            }
+            return  ResponseEntity.status(401).body("Acesso negado!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("ERRO: Dados incompletos! " + e);
         }
