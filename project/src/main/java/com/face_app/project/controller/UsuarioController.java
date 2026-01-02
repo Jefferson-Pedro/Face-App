@@ -1,6 +1,6 @@
 package com.face_app.project.controller;
 
-import com.face_app.project.dto.UsuarioDTO;
+import com.face_app.project.dto.UsuarioRequest;
 import com.face_app.project.service.usuario.IUsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,11 @@ public class UsuarioController {
     private IUsuarioService service;
 
     @PostMapping("/user/new")
-    public ResponseEntity<String> register (@Valid @RequestBody UsuarioDTO usuarioDTO){
+    public ResponseEntity<String> register (@Valid @RequestBody UsuarioRequest usuarioRequest){
         try{
-            Boolean res = service.register(usuarioDTO);
+            Boolean res = service.register(usuarioRequest);
             if(res){
-                return ResponseEntity.status(201).body("Usuario " + usuarioDTO.nome() + " cadastrado com sucesso!");
+                return ResponseEntity.status(201).body("Usuario " + usuarioRequest.nome() + " cadastrado com sucesso!");
             }
             return  ResponseEntity.status(409).body("Usuário já cadastrado na base de dados!");
         } catch (Exception e) {

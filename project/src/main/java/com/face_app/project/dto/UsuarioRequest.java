@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 
-public record UsuarioDTO(
+public record UsuarioRequest(
         @NotNull String nome,
         @NotNull @Length(min = 11, max = 11) String cpf,
         @NotNull @Length(min = 11, max = 100) String email,

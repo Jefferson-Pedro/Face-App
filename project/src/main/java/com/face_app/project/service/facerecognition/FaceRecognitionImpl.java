@@ -34,7 +34,7 @@ public class FaceRecognitionImpl implements IFaceRecognition {
     @Value("${io.faceapp.tempfolder}")
     private String tmpFolder;
 
-    @Value("${io.faceapp.cropfaces")
+    @Value("${io.faceapp.cropfaces}")
     private String cropFolder;
 
     @Value("${io.faceapp.recognitionfaces}")
