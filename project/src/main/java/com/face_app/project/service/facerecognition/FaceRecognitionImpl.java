@@ -46,7 +46,14 @@ public class FaceRecognitionImpl implements IFaceRecognition {
 
        try {
             String filename = tmpFolder + File.separator + UUID.randomUUID().toString() + ".png";
-            byte[] imageData = Base64.decodeBase64(filename);
+
+           // Remove o prefixo "data:image/png;base64," se existir
+            String base64Data = base64Content;
+            if(base64Content.contains(",")){
+                base64Data = base64Content.split(",")[1];
+            }
+            // Decodificando o conteúdo base64
+            byte[] imageData = Base64.decodeBase64(base64Data);
             File newImage = new File(filename);
             OutputStream output = new BufferedOutputStream(new FileOutputStream(newImage));
             output.write(imageData);
