@@ -94,36 +94,41 @@ public class FaceRecognitionImpl implements IFaceRecognition {
 
     // Método para treinamento da API
     @Override
-    public void performTraining() {
-        FaceRecognizer recognizer = LBPHFaceRecognizer.create();
-        // Pegando os meus arquivos e listando-os
-        File dir =  new File(cropFolder);
-        File[] images = dir.listFiles();
+    public String performTraining() {
+        try {
+            FaceRecognizer recognizer = LBPHFaceRecognizer.create();
+            // Pegando os meus arquivos e listando-os
+            File dir = new File(cropFolder);
+            File[] images = dir.listFiles();
 
-        //DEBUG
-        for(File f: images){
-            System.out.println("Face encontrada: " + f.getName());
+            //DEBUG
+            for (File f : images) {
+                System.out.println("Face found: " + f.getName());
+            }
+            MatVector photos = new MatVector(images.length); // armazenando as fotos como matrizes
+            Mat labels = new Mat(images.length, 1, opencv_core.CV_32SC1); //armazendo os identificadores para as fotos
+            int contador = 0;
+            IntBuffer bufferLabels = labels.createBuffer();
+            int personId = 0;
+
+            for (File currentImage : images) {
+                Mat photo = opencv_imgcodecs.imread(cropFolder + File.separator + currentImage.getName(), opencv_imgcodecs.IMREAD_GRAYSCALE);
+                bufferLabels.put(contador, personId);
+                opencv_imgproc.resize(photo, photo, new Size(160, 160));
+                photos.put(contador, photo);
+                contador++;
+                personId++; //Id da todo de acordo com o Id do usuário;
+            }
+
+            File f = new File("LBPHTraining.yml");
+
+            recognizer.train(photos, labels);
+            recognizer.save("LBPHTraining.yml");
+            return "Complete Training";
+
+        } catch (Exception e) {
+            throw new RuntimeException("Aconteceu um erro: " , e);
         }
-        MatVector photos = new MatVector(images.length); // armazenando as fotos como matrizes
-        Mat labels = new Mat(images.length, 1, opencv_core.CV_32SC1); //armazendo os identificadores para as fotos
-        int contador = 0;
-        IntBuffer bufferLabels = labels.createBuffer();
-        int personId = 0;
-
-        for (File currentImage: images){
-            Mat photo = opencv_imgcodecs.imread(cropFolder + File.separator + currentImage.getName(), opencv_imgcodecs.IMREAD_GRAYSCALE);
-            bufferLabels.put(contador, personId);
-            opencv_imgproc.resize(photo, photo, new Size(160,160));
-            photos.put(contador, photo);
-            contador++;
-            personId++; //Id da todo de acordo com o Id do usuário;
-        }
-
-        File f = new File("LBPHTraining.yml");
-
-        recognizer.train(photos, labels);
-        recognizer.save("LBPHTraining.yml");
-        System.out.println("Treinamento completado!");
     }
 
     // Reconhece uma face presente em uma imagem comparando com o banco treinado.

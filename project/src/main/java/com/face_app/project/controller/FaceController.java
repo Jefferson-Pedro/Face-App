@@ -18,7 +18,7 @@ public class FaceController {
     public ResponseEntity<?> registerFace(@RequestBody FaceDTO faceDTO){
 
         String filename = service.toImage(faceDTO.getData());
-        if(service.cropFace(filename, "-crop.png", FaceMode.REGISTER)){
+        if(service.cropFace(filename, "-crop", FaceMode.REGISTER)){
             System.out.println("Gerando arquivo: " + filename);
             return ResponseEntity.ok(filename);
         }
@@ -27,14 +27,15 @@ public class FaceController {
 
     @GetMapping("/face/training")
     public String performFaceTraining(){
-        service.performTraining();
-        return "OK";
+        System.out.println("Performing Face Training...");
+        String res = service.performTraining();
+        return res;
     }
 
-    @GetMapping("/face/recognize")
+    @PostMapping("/face/recognize")
     public String recognizeFace(@RequestBody FaceDTO faceDTO){
         String filename = service.toImage(faceDTO.getData());
-        if(service.cropFace(filename, "-recog.png", FaceMode.RECOGNITION)){
+        if(service.cropFace(filename, "-recog", FaceMode.RECOGNITION)){
             service.performRecognition(faceDTO);
         }
         return "OK";

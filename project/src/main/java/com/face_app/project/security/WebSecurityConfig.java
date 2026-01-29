@@ -36,6 +36,8 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/user/new").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/face/register").permitAll()
+                .requestMatchers(HttpMethod.GET, "/face/training").permitAll()
+                .requestMatchers(HttpMethod.POST, "/face/recognize").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
         );

@@ -8,6 +8,6 @@ public interface IFaceRecognition {
 
     public String toImage(String base64Content);
     public boolean cropFace(String filename, String extension, int model);
-    public void performTraining ();
+    public String performTraining ();
     public RecognitionDTO performRecognition (FaceDTO data);
 }
