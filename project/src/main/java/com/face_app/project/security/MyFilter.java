@@ -16,15 +16,15 @@ public class MyFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("URI: " + request.getRequestURI());
+       /* System.out.println("URI: " + request.getRequestURI());
         System.out.println("Método: " + request.getMethod());
-        System.out.println("Authorization Header: " + request.getHeader("Authorization"));
+        System.out.println("Authorization Header: " + request.getHeader("Authorization"));*/
 
         String authHeader = request.getHeader("Authorization");
 
         // Se não tem token, deixa o Spring Security decidir se a rota é pública ou não
         if (authHeader == null || authHeader.isEmpty()) {
-            System.out.println("Sem token - delegando para Spring Security");
+            //System.out.println("Sem token - delegando para Spring Security");
             filterChain.doFilter(request, response);
             return;
         }
