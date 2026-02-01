@@ -1,6 +1,6 @@
 package com.face_app.project.dto;
 
-import com.face_app.project.model.Usuario;
+import com.face_app.project.model.User;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,17 +14,17 @@ public record UsuarioRequest(
         @NotNull @Length(min = 3, max = 45) String login,
         @NotNull @Length(min = 6, max = 255) String senha ) {
 
-    public Usuario toUsuario(){
+    public User toUsuario(){
 
-        Usuario usuario = new Usuario();
-        usuario.setNome(nome);
-        usuario.setCpf(cpf);
-        usuario.setTelefone(telefone);
-        usuario.setEmail(email);
-        usuario.setLogin(login);
-        usuario.setSenha(senha);
-        usuario.setData_criacao(LocalDateTime.now());
-        usuario.setAtivo(Boolean.TRUE);
-        return usuario;
+        User user = new User();
+        user.setNome(nome);
+        user.setCpf(cpf);
+        user.setTelefone(telefone);
+        user.setEmail(email);
+        user.setLogin(login);
+        user.setSenha(senha);
+        user.setData_criacao(LocalDateTime.now());
+        user.setAtivo(Boolean.TRUE);
+        return user;
     }
 }

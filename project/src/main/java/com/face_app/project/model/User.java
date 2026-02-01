@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table
-public class Usuario {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Usuario {
     @NotNull
     private Boolean ativo;
 
-    public Usuario(Integer idUsuario, String nome, String cpf, String email, String telefone, String login, String senha, Boolean ativo) {
+    public User(Integer idUsuario, String nome, String cpf, String email, String telefone, String login, String senha, Boolean ativo) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
@@ -59,7 +59,7 @@ public class Usuario {
         this.ativo = ativo;
     }
 
-    public Usuario() {}
+    public User() {}
 
     public Integer getIdUsuario() {
         return idUsuario;

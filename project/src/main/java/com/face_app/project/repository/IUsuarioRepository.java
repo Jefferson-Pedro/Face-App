@@ -1,11 +1,11 @@
 package com.face_app.project.repository;
 
-import com.face_app.project.model.Usuario;
+import com.face_app.project.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface IUsuarioRepository extends JpaRepository<User, Integer> {
 
-    public Usuario findByEmailOrCpfOrLogin (String email, String cpf, String login);
+    public User findByEmailOrCpfOrLogin (String email, String cpf, String login);
 
-    public Usuario findByLogin (String login);
+    public User findByLogin (String login);
 }

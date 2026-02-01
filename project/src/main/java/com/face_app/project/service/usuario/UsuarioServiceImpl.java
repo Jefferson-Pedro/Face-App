@@ -3,7 +3,7 @@ package com.face_app.project.service.usuario;
 import com.face_app.project.dto.UserLoginRequest;
 import com.face_app.project.dto.UsuarioRequest;
 import com.face_app.project.dto.UsuarioResponse;
-import com.face_app.project.model.Usuario;
+import com.face_app.project.model.User;
 import com.face_app.project.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,29 +19,29 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public Boolean register(@Valid UsuarioRequest usuarioRequest) {
 
-        Usuario res = repository.findByEmailOrCpfOrLogin(usuarioRequest.email(), usuarioRequest.cpf(), usuarioRequest.login());
+        User res = repository.findByEmailOrCpfOrLogin(usuarioRequest.email(), usuarioRequest.cpf(), usuarioRequest.login());
 
         if(res != null){
             return false;
         }
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        Usuario usuario = usuarioRequest.toUsuario();
-        String senhaCript = encoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaCript);
+        User user = usuarioRequest.toUsuario();
+        String senhaCript = encoder.encode(user.getSenha());
+        user.setSenha(senhaCript);
 
-        repository.save(usuario);
+        repository.save(user);
         return true;
     }
 
     @Override
     public Boolean login(UserLoginRequest loginRequest) {
 
-        Usuario usuario = repository.findByLogin(loginRequest.login());
+        User user = repository.findByLogin(loginRequest.login());
 
-        if(usuario != null){
+        if(user != null){
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            return encoder.matches(loginRequest.senha(), usuario.getSenha());
+            return encoder.matches(loginRequest.senha(), user.getSenha());
         }
         return false;
     }
