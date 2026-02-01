@@ -15,9 +15,9 @@ CREATE SCHEMA IF NOT EXISTS `faceapp` DEFAULT CHARACTER SET utf8 ;
 USE `faceapp` ;
 
 -- -----------------------------------------------------
--- Table `faceapp`.`usuario`
+-- Table `faceapp`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `faceapp`.`usuario` (
+CREATE TABLE IF NOT EXISTS `faceapp`.`user` (
   `idusuario` INT NOT NULL,
   `nome` VARCHAR(45) NULL,
   `telefone` VARCHAR(20) NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `faceapp`.`arquivo` (
   INDEX `fk_arquivo_usuario_idx` (`usuarioid` ASC),
   CONSTRAINT `fk_arquivo_usuario`
     FOREIGN KEY (`usuarioid`)
-    REFERENCES `faceapp`.`usuario` (`idusuario`)
+    REFERENCES `faceapp`.`user` (`idusuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
