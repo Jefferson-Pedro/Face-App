@@ -6,15 +6,16 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario")
-    private Integer idUsuario;
+    private UUID idUsuario;
 
     @NotNull
     @Length(min = 3, max = 150)
@@ -46,9 +47,13 @@ public class User {
     private LocalDateTime data_criacao;
 
     @NotNull
+    @Column(name = "face_cadastrada", nullable = false)
+    private Boolean faceCadastrada = false;
+
+    @NotNull
     private Boolean ativo;
 
-    public User(Integer idUsuario, String nome, String cpf, String email, String telefone, String login, String senha, Boolean ativo) {
+    public Users(UUID idUsuario, String nome, String cpf, String email, String telefone, String login, String senha, Boolean ativo) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
@@ -59,13 +64,13 @@ public class User {
         this.ativo = ativo;
     }
 
-    public User() {}
+    public Users() {}
 
-    public Integer getIdUsuario() {
+    public UUID getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(UUID idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -123,6 +128,14 @@ public class User {
 
     public void setData_criacao(LocalDateTime data_criacao) {
         this.data_criacao = data_criacao;
+    }
+
+    public Boolean getFaceCadastrada() {
+        return faceCadastrada;
+    }
+
+    public void setFaceCadastrada(Boolean faceCadastrada) {
+        this.faceCadastrada = faceCadastrada;
     }
 
     public Boolean getAtivo() {
