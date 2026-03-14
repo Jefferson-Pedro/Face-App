@@ -1,16 +1,19 @@
 package com.face_app.project.service.usuario;
 
-import com.face_app.project.dto.UserLoginRequest;
-import com.face_app.project.dto.UsuarioRequest;
-import com.face_app.project.dto.UsuarioResponse;
+import com.face_app.project.dto.FaceDTO;
+import com.face_app.project.dto.UserRegistrationRequest;
+import com.face_app.project.dto.UserResponse;
+import jakarta.validation.Valid;
+
+import java.util.UUID;
 
 public interface IUsuarioService {
 
-    public Boolean register (UsuarioRequest usuarioRequest);
+    public boolean registerUser(@Valid UserRegistrationRequest usuarioRequest);
 
-    public Boolean login (UserLoginRequest loginRequest);
+    public boolean registerUserFace(UUID userId, FaceDTO faceDTO);
 
-    public Boolean update (UsuarioRequest usuarioRequest);
+    public boolean update (UserRegistrationRequest usuarioRequest);
 
-    public UsuarioResponse findById(Integer id);
+    public UserResponse findById(Integer id);
 }
