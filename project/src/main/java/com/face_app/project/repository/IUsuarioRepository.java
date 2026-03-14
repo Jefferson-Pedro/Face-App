@@ -1,11 +1,17 @@
 package com.face_app.project.repository;
 
-import com.face_app.project.model.User;
+import com.face_app.project.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IUsuarioRepository extends JpaRepository<User, Integer> {
+import java.util.UUID;
 
-    public User findByEmailOrCpfOrLogin (String email, String cpf, String login);
+@Repository
+public interface IUsuarioRepository extends JpaRepository<Users, Integer> {
 
-    public User findByLogin (String login);
+    public Users findByEmailOrCpfOrLogin (String email, String cpf, String login);
+
+    public Users findById(UUID id);
+
+    public Users findByLogin (String login);
 }
