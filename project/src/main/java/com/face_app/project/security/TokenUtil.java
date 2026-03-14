@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import com.face_app.project.model.User;
+import com.face_app.project.model.Users;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
@@ -22,7 +22,7 @@ public class TokenUtil {
     public static final String  SECRET_KEY = "01234567890123456789012345678901";
     public static final String PREFIX = "Bearer ";
 
-    public static FaceToken encode (User user){
+    public static FaceToken encode (Users user){
 
         try {
             Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes()); // Chave de criptogragia.
