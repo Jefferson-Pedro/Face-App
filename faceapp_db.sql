@@ -18,15 +18,16 @@ USE `faceapp` ;
 -- Table `faceapp`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `faceapp`.`user` (
-  `idusuario` INT NOT NULL,
+  `idusuario` VARCHAR(45) NOT NULL,
   `nome` VARCHAR(45) NULL,
   `telefone` VARCHAR(20) NULL,
   `login` VARCHAR(45) NULL,
   `senha` VARCHAR(255) NULL,
-  `ativo` TINYINT NULL,
   `email` VARCHAR(45) NULL,
   `cpf` VARCHAR(11) NULL,
   `data_criacao` DATETIME NULL,
+  `face_cadastrada` TINYINT NOT NULL DEFAULT 0,
+  `ativo` TINYINT NULL
   PRIMARY KEY (`idusuario`))
 ENGINE = InnoDB;
 
@@ -35,18 +36,19 @@ ENGINE = InnoDB;
 -- Table `faceapp`.`arquivo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `faceapp`.`arquivo` (
-  `idarquivo` INT NOT NULL,
-  `tipo_arquivo` VARCHAR(10) NULL,
-  `usuarioid` INT NOT NULL,
-  `arquivo` MEDIUMBLOB NULL,
+  `idarquivo` VARCHAR(45) NOT NULL AUTO_INCREMENT,
+  `usuarioid` VARCHAR(45) NOT NULL,
+  `s3_url` VARCHAR(500) NULL, 
+  `data_upload` DATETIME NULL,
   PRIMARY KEY (`idarquivo`),
   INDEX `fk_arquivo_usuario_idx` (`usuarioid` ASC),
   CONSTRAINT `fk_arquivo_usuario`
     FOREIGN KEY (`usuarioid`)
     REFERENCES `faceapp`.`user` (`idusuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
