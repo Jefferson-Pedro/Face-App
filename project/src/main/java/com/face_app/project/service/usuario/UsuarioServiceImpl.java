@@ -1,58 +1,81 @@
 package com.face_app.project.service.usuario;
 
-import com.face_app.project.dto.UserLoginRequest;
-import com.face_app.project.dto.UsuarioRequest;
-import com.face_app.project.dto.UsuarioResponse;
-import com.face_app.project.model.User;
+import com.face_app.project.dto.FaceDTO;
+import com.face_app.project.dto.UserRegistrationRequest;
+import com.face_app.project.dto.UserResponse;
+import com.face_app.project.model.FileUser;
+import com.face_app.project.model.Users;
 import com.face_app.project.repository.IUsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
+import com.face_app.project.service.face.FaceService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
 
     @Autowired
-    private IUsuarioRepository repository;
+    private IUsuarioRepository userRepository;
+
+    @Autowired
+    private FaceService faceService;
 
     @Override
-    public Boolean register(@Valid UsuarioRequest usuarioRequest) {
+    public boolean registerUser(@Valid UserRegistrationRequest usuarioRequest) {
 
-        User res = repository.findByEmailOrCpfOrLogin(usuarioRequest.email(), usuarioRequest.cpf(), usuarioRequest.login());
+        Users user = userRepository.findByEmailOrCpfOrLogin(
+                usuarioRequest.email(),
+                usuarioRequest.cpf(),
+                usuarioRequest.login()
+        );
 
-        if(res != null){
+        if(user == null){
             return false;
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = usuarioRequest.toUsuario();
-        String senhaCript = encoder.encode(user.getSenha());
-        user.setSenha(senhaCript);
+        user = usuarioRequest.toUsuario();
+        userRepository.save(user);
 
-        repository.save(user);
         return true;
     }
 
     @Override
-    public Boolean login(UserLoginRequest loginRequest) {
+    @Transactional
+    public boolean registerUserFace(UUID userId, FaceDTO faceDTO) {
+        // Busca usuário
+        Users user = userRepository.findById(userId);
 
-        User user = repository.findByLogin(loginRequest.login());
-
-        if(user != null){
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            return encoder.matches(loginRequest.senha(), user.getSenha());
+        if(user == null) {
+            throw new IllegalArgumentException("Usuário não encontrado");
         }
+
+        // Verifica se já tem face cadastrada
+        if (user.getFaceCadastrada()) {
+            throw new IllegalArgumentException("Usuário já possui face cadastrada");
+        }
+
+        // Processa e salva face
+        if(faceService.registerFace(user, faceDTO)){
+            // Retreina modelo
+            faceService.retrainModel();
+
+            // Atualiza flag
+            user.setFaceCadastrada(true);
+            userRepository.save(user);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean update(UserRegistrationRequest usuarioRequest) {
         return false;
     }
 
     @Override
-    public Boolean update(UsuarioRequest usuarioRequest) {
-        return null;
-    }
-
-    @Override
-    public UsuarioResponse findById(Integer id) {
+    public UserResponse findById(Integer id) {
         return null;
     }
 }
