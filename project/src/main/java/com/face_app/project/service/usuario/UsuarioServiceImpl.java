@@ -46,7 +46,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional
     public boolean registerUserFace(UUID userId, FaceDTO faceDTO) {
         // Busca usuário
-        Users user = userRepository.findById(userId);
+        Users user = userRepository.findByIdUsuario(userId);
 
         if(user == null) {
             throw new IllegalArgumentException("Usuário não encontrado");

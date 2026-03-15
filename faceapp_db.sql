@@ -1,23 +1,13 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
 -- Schema faceapp
--- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `faceapp` DEFAULT CHARACTER SET utf8;
+USE `faceapp`;
 
--- -----------------------------------------------------
--- Schema faceapp
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `faceapp` DEFAULT CHARACTER SET utf8 ;
-USE `faceapp` ;
-
--- -----------------------------------------------------
--- Table `faceapp`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `faceapp`.`user` (
+-- Tabela users
+CREATE TABLE IF NOT EXISTS `faceapp`.`users` (
   `idusuario` VARCHAR(45) NOT NULL,
   `nome` VARCHAR(45) NULL,
   `telefone` VARCHAR(20) NULL,
@@ -27,16 +17,13 @@ CREATE TABLE IF NOT EXISTS `faceapp`.`user` (
   `cpf` VARCHAR(11) NULL,
   `data_criacao` DATETIME NULL,
   `face_cadastrada` TINYINT NOT NULL DEFAULT 0,
-  `ativo` TINYINT NULL
-  PRIMARY KEY (`idusuario`))
-ENGINE = InnoDB;
+  `ativo` TINYINT NULL,
+  PRIMARY KEY (`idusuario`)
+) ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `faceapp`.`arquivo`
--- -----------------------------------------------------
+-- Tabela arquivo
 CREATE TABLE IF NOT EXISTS `faceapp`.`arquivo` (
-  `idarquivo` VARCHAR(45) NOT NULL AUTO_INCREMENT,
+  `idarquivo` INT NOT NULL AUTO_INCREMENT,
   `usuarioid` VARCHAR(45) NOT NULL,
   `s3_url` VARCHAR(500) NULL, 
   `data_upload` DATETIME NULL,
@@ -44,12 +31,10 @@ CREATE TABLE IF NOT EXISTS `faceapp`.`arquivo` (
   INDEX `fk_arquivo_usuario_idx` (`usuarioid` ASC),
   CONSTRAINT `fk_arquivo_usuario`
     FOREIGN KEY (`usuarioid`)
-    REFERENCES `faceapp`.`user` (`idusuario`)
+    REFERENCES `faceapp`.`users` (`idusuario`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
-
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

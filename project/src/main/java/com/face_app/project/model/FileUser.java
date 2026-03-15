@@ -16,7 +16,7 @@ public class FileUser {
 
 
     @ManyToOne
-    @JoinColumn(name = "usuarioid", nullable = false)
+    @JoinColumn(name = "idusuario", nullable = false)
     private Users usuario;
 
     @Column(name = "s3_url", length = 500)

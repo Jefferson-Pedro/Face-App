@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface IUsuarioRepository extends JpaRepository<Users, Integer> {
+public interface IUsuarioRepository extends JpaRepository<Users, UUID> {
 
     public Users findByEmailOrCpfOrLogin (String email, String cpf, String login);
 
-    public Users findById(UUID id);
+    public Users findByIdUsuario(UUID id);
 
     public Users findByLogin (String login);
 }
