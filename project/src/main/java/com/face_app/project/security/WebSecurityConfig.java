@@ -35,7 +35,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/user/new").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
-                .requestMatchers(HttpMethod.POST, "/face/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/face/register/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/face/training").permitAll()
                 .requestMatchers(HttpMethod.POST, "/face/recognize").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
@@ -48,6 +48,7 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));

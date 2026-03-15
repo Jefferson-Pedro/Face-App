@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface IFileRepository extends JpaRepository<FileUser, UUID> {
+public interface IFileRepository extends JpaRepository<FileUser, Integer> {
 
-    public Optional<FileUser> findById(UUID idArquivo);
 }

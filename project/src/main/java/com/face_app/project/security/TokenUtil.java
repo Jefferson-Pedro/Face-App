@@ -47,7 +47,7 @@ public class TokenUtil {
 
                 JwtParser jwtParser = Jwts.parser().verifyWith(secretKey).build();
 
-                Claims claims = (Claims) jwtParser.parse(token).getPayload();
+                Claims claims = jwtParser.parseSignedClaims(token).getPayload();
                 String issuer = claims.getIssuer();
                 String subject = claims.getSubject();
                 Date expiration = claims.getExpiration();

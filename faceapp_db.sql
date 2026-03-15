@@ -8,7 +8,7 @@ USE `faceapp`;
 
 -- Tabela users
 CREATE TABLE IF NOT EXISTS `faceapp`.`users` (
-  `idusuario` VARCHAR(45) NOT NULL,
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `telefone` VARCHAR(20) NULL,
   `login` VARCHAR(45) NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `faceapp`.`users` (
 -- Tabela arquivo
 CREATE TABLE IF NOT EXISTS `faceapp`.`arquivo` (
   `idarquivo` INT NOT NULL AUTO_INCREMENT,
-  `usuarioid` VARCHAR(45) NOT NULL,
+  `usuarioid` INT NOT NULL,
   `s3_url` VARCHAR(500) NULL, 
   `data_upload` DATETIME NULL,
   PRIMARY KEY (`idarquivo`),

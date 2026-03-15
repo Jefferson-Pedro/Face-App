@@ -43,7 +43,7 @@ public class FaceService implements IFaceService {
             }
 
             //salvando localmente a foto
-            String filePath = tempPath(cropedImage, user.getIdUsuario());
+            String filePath = saveLocalFile(cropedImage, user.getIdUsuario());
 
             String s3Url = s3Service.uploadFile(cropedImage, user.getIdUsuario(), ".png");
 
@@ -98,24 +98,7 @@ public class FaceService implements IFaceService {
         }
     }
 
-    // Salvando a imagem cropada localmente para treinamento LBPH
-    private String saveLocalFile(byte[] imageBytes, UUID userId) throws IOException {
-
-        // Montando o caminho do arquivo e se não existir, criar o diretório.
-        String filename = cropFolder + File.separator + userId + "-crop.png";
-        File file = new File(filename);
-        file.getParentFile().mkdirs();
-
-        // Escrevendo os bytes no arquivo
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(imageBytes);
-        }
-
-        System.out.println("Face salva localmente em: " + filename);
-        return filename;
-    }
-
-    private void cleanupLocalFile(UUID userId){
+    private void cleanupLocalFile(Integer userId){
 
         try {
             // Montando o caminho do arquivo
@@ -133,7 +116,8 @@ public class FaceService implements IFaceService {
 
     }
 
-    private String tempPath (byte[] image, UUID userId) {
+    // Salvando a imagem cropada localmente para treinamento LBPH
+    private String saveLocalFile (byte[] image, Integer userId) {
         try{
             String filename = cropFolder + File.separator + userId + "-crop.png";
 

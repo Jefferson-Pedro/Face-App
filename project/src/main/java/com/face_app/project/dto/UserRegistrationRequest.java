@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record UserRegistrationRequest(
         @NotNull String nome,
@@ -13,8 +14,7 @@ public record UserRegistrationRequest(
         @NotNull @Length(min = 11, max = 100) String email,
         @NotNull @Length(min = 10, max = 20) String telefone,
         @NotNull @Length(min = 3, max = 45) String login,
-        @NotNull @Length(min = 6, max = 255) String senha,
-        @NotNull String faceImage) {
+        @NotNull @Length(min = 6, max = 255) String senha) {
 
     public Users toUsuario(){
 

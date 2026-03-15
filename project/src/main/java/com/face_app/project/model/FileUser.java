@@ -12,7 +12,7 @@ public class FileUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idarquivo")
-    private UUID idArquivo;
+    private Integer idArquivo;
 
 
     @ManyToOne
@@ -33,7 +33,7 @@ public class FileUser {
         this.s3Url = s3Url;
     }
 
-    public FileUser(UUID idArquivo, Users usuario, String s3Url) {
+    public FileUser(Integer idArquivo, Users usuario, String s3Url) {
         this.idArquivo = idArquivo;
         this.usuario = usuario;
         this.s3Url = s3Url;
@@ -41,11 +41,11 @@ public class FileUser {
 
     }
 
-    public UUID getIdArquivo() {
+    public Integer getIdArquivo() {
         return idArquivo;
     }
 
-    public void setIdArquivo(UUID idArquivo) {
+    public void setIdArquivo(Integer idArquivo) {
         this.idArquivo = idArquivo;
     }
 

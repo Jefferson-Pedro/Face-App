@@ -133,7 +133,6 @@ public class FaceRecognitionImpl implements IFaceRecognition {
             IntBuffer bufferLabels = labels.getIntBuffer();
 
             int contador = 0;
-            int personId = 0;
 
             for (File currentImage : images) {
                 Mat photo = opencv_imgcodecs.imread(
@@ -146,14 +145,16 @@ public class FaceRecognitionImpl implements IFaceRecognition {
                     continue;
                 }
 
+                String fileName = currentImage.getName();
+                int userId = Integer.parseInt(fileName.replace("-crop.png", ""));
+
                 // Normaliza tamanho
                 opencv_imgproc.resize(photo, photo, new Size(160, 160));
 
                 photos.put(contador, photo);
-                bufferLabels.put(contador, personId); // agora funciona!
+                bufferLabels.put(contador, userId);
 
                 contador++;
-                personId++;
             }
 
             // Ajusta tamanho se pulou imagens inválidas

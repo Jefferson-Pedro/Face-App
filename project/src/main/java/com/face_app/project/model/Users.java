@@ -13,9 +13,9 @@ import java.util.UUID;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusuario")
-    private UUID idUsuario;
+    private Integer idUsuario;
 
     @NotNull
     @Length(min = 3, max = 150)
@@ -53,7 +53,7 @@ public class Users {
     @NotNull
     private Boolean ativo;
 
-    public Users(UUID idUsuario, String nome, String cpf, String email, String telefone, String login, String senha, Boolean ativo) {
+    public Users(Integer idUsuario, String nome, String cpf, String email, String telefone, String login, String senha, Boolean ativo) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
@@ -66,11 +66,11 @@ public class Users {
 
     public Users() {}
 
-    public UUID getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(UUID idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 

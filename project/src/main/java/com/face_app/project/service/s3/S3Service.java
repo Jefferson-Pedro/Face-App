@@ -29,10 +29,10 @@ public class S3Service {
      * @param fileExtension - extensão do arquivo (ex: .png)
      * @return URL do arquivo no S3
      */
-    public String uploadFile(byte[] fileBytes, UUID userId, String fileExtension) {
+    public String uploadFile(byte[] fileBytes, Integer userId, String fileExtension) {
         try {
             // Gera um nome único para o arquivo
-            String fileName = "faces/" + userId.toString() + "/" + fileExtension;
+            String fileName = "faces/" + userId + "/face" + fileExtension;
 
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)

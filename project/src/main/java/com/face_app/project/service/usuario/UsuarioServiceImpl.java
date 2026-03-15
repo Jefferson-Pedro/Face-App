@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,7 +25,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private FaceService faceService;
 
     @Override
-    public boolean registerUser(@Valid UserRegistrationRequest usuarioRequest) {
+    public UserResponse registerUser(@Valid UserRegistrationRequest usuarioRequest) {
 
         Users user = userRepository.findByEmailOrCpfOrLogin(
                 usuarioRequest.email(),
@@ -32,19 +33,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 usuarioRequest.login()
         );
 
-        if(user == null){
-            return false;
+        if(user != null){
+            throw new IllegalArgumentException("Usuário já cadastrado!");
         }
 
         user = usuarioRequest.toUsuario();
         userRepository.save(user);
 
-        return true;
+        return UserResponse.toUserResponse(user);
     }
 
     @Override
     @Transactional
-    public boolean registerUserFace(UUID userId, FaceDTO faceDTO) {
+    public boolean registerUserFace(Integer userId, FaceDTO faceDTO) {
         // Busca usuário
         Users user = userRepository.findByIdUsuario(userId);
 
@@ -75,7 +76,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public UserResponse findById(Integer id) {
-        return null;
+    public Users findById(Integer id) {
+       return userRepository.findById(id).orElse(null);
     }
 }
