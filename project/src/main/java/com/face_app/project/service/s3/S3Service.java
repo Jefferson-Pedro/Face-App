@@ -32,7 +32,9 @@ public class S3Service {
     public String uploadFile(byte[] fileBytes, Integer userId, String fileExtension) {
         try {
             // Gera um nome único para o arquivo
-            String fileName = "faces/" + userId + "/face" + fileExtension;
+            String fileName = "faces/" + userId + "/" + System.currentTimeMillis() + ".png";
+
+            System.out.println("Nome do arquivo: " + fileName);
 
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
@@ -41,6 +43,8 @@ public class S3Service {
                     .build();
 
             s3Client.putObject(putObjectRequest, RequestBody.fromBytes(fileBytes));
+
+            System.out.println("Link retornado do S3: "+ "https://%s.s3.%s.amazonaws.com/%s " + bucketName + region + fileName);
 
             // Retorna a URL pública do arquivo
             return String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, fileName);
