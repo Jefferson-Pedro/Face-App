@@ -22,15 +22,15 @@ CREATE TABLE IF NOT EXISTS `faceapp`.`users` (
 ) ENGINE = InnoDB;
 
 -- Tabela arquivo
-CREATE TABLE IF NOT EXISTS `faceapp`.`arquivo` (
+CREATE TABLE IF NOT EXISTS `faceapp`.`file_user` (
   `idarquivo` INT NOT NULL AUTO_INCREMENT,
-  `usuarioid` INT NOT NULL,
+  `idusuario` INT NOT NULL,
   `s3_url` VARCHAR(500) NULL, 
   `data_upload` DATETIME NULL,
   PRIMARY KEY (`idarquivo`),
-  INDEX `fk_arquivo_usuario_idx` (`usuarioid` ASC),
+  INDEX `fk_arquivo_usuario_idx` (`idusuario` ASC),
   CONSTRAINT `fk_arquivo_usuario`
-    FOREIGN KEY (`usuarioid`)
+    FOREIGN KEY (`idusuario`)
     REFERENCES `faceapp`.`users` (`idusuario`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION
