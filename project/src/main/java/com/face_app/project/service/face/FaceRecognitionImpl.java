@@ -115,6 +115,12 @@ public class FaceRecognitionImpl implements IFaceRecognition {
             System.out.println("Starting training...");
             FaceRecognizer recognizer = LBPHFaceRecognizer.create();
 
+            File cropDir = new File(cropFolder);
+            if (!cropDir.exists()) {
+                cropDir.mkdirs();
+                System.out.println("Pasta criada: " + cropFolder);
+            }
+
             // Pegando os arquivos da pasta de faces recortadas
             File dir = new File(cropFolder);
             File[] images = dir.listFiles();
@@ -194,8 +200,16 @@ public class FaceRecognitionImpl implements IFaceRecognition {
             RectVector faces = new RectVector();
             classifier.detectMultiScale(currentFace, faces);
             System.out.println("Face detectada: " + faces.size());
+
             if (faces.size() > 0){
                 detectedface = new Mat(currentFace, faces.get(0));
+
+                File recognitionDir = new File(recognitionFolder);
+                if (!recognitionDir.exists()) {
+                    recognitionDir.mkdirs();
+                    System.out.println("Pasta de reconhecimento criada: " + recognitionFolder);
+                }
+
                 imwrite(recognitionFolder + File.separator + UUID.randomUUID() + ".png", detectedface);
             }
 
