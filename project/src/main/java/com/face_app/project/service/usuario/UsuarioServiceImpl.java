@@ -3,6 +3,7 @@ package com.face_app.project.service.usuario;
 import com.face_app.project.dto.FaceDTO;
 import com.face_app.project.dto.UserRegistrationRequest;
 import com.face_app.project.dto.UserResponse;
+import com.face_app.project.exceptions.DuplicateUserException;
 import com.face_app.project.model.FileUser;
 import com.face_app.project.model.Users;
 import com.face_app.project.repository.IUsuarioRepository;
@@ -34,7 +35,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         );
 
         if(user != null){
-            throw new IllegalArgumentException("Usuário já cadastrado!");
+            throw new DuplicateUserException("Usuário já cadastrado!");
         }
 
         user = usuarioRequest.toUsuario();

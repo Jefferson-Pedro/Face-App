@@ -20,9 +20,6 @@ public class FaceController {
     private IFaceRecognition serviceRecognition;
 
     @Autowired
-    private IFaceService serviceFace;
-
-    @Autowired
     private IUsuarioService serviceUser;
 
     @PostMapping("/face/register/{userId}")

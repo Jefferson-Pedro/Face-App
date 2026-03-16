@@ -25,8 +25,8 @@ public class UsuarioController {
             UserResponse user = service.registerUser(usuarioRequest);
             if(user != null){
                 return ResponseEntity.status(201).body(Map.of(
-                        "mensagem", "Usuário " + user.nome()+ " cadastrado com sucesso!",
-                        "userId", user.id()
+                        "mensagem: ", "Usuário " + user.nome()+ " cadastrado com sucesso!",
+                        "userId: ", user.id()
                 ));
             }
             return  ResponseEntity.status(409).body("Usuário já cadastrado na base de dados!");
@@ -34,4 +34,6 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body("ERRO: Dados incompletos! " + e);
         }
     }
+
+
 }

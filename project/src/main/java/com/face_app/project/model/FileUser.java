@@ -14,14 +14,12 @@ public class FileUser {
     @Column(name = "idarquivo")
     private Integer idArquivo;
 
-
     @ManyToOne
     @JoinColumn(name = "idusuario", nullable = false)
     private Users usuario;
 
     @Column(name = "s3_url", length = 500)
     private String s3Url;
-
 
     @Column(name = "data_upload")
     private LocalDateTime dataUpload;
